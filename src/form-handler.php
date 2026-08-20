@@ -6,6 +6,7 @@ header('Content-Type: application/json');
 $data = json_decode(file_get_contents('php://input'), true) ?: [];
 $name = trim((string) ($data['name'] ?? ''));
 $phone = trim((string) ($data['phone'] ?? ''));
+$course = trim((string) ($data['course'] ?? ''));
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
@@ -20,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $payload = [
     'chat_id' => -5492262707,
-    'text' => "<pre><b>Incoming Request</b>\nName: {$name}\nPhone Number: {$phone}</pre>",
+    'text' => "<pre><b>Incoming Request</b>\nName: {$name}\nPhone Number: {$phone}\nCourse of Interest: {$course}</pre>",
     'parse_mode' => 'HTML',
 ];
 
