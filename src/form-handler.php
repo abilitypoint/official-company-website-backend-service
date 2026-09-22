@@ -25,7 +25,14 @@ $payload = [
     'parse_mode' => 'HTML',
 ];
 
-$url = 'https://api.telegram.org/bot8731078318:AAHOXSj00vZXW-nImaxRzfnNLWPU7g4yVMU/sendMessage';
+$telegramToken = getenv('TELEGRAM_BOT_TOKEN');
+if (!$telegramToken) {
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'Telegram is not configured']);
+    exit;
+}
+
+$url = 'https://api.telegram.org/bot' . rawurlencode($telegramToken) . '/sendMessage';
 $context = stream_context_create([
     'http' => [
         'method' => 'POST',
